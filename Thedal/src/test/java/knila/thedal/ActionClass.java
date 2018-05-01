@@ -13,15 +13,15 @@ public class ActionClass {
 		this.driver = driver;
 	}
 
-	public void action(String Action,String Location,String Value) {
+	public void action(String Action,String ElementType,String Location,String Value) {
 		switch(Action.toLowerCase())
 		{
 		case "click":{
-			driver.findElement(Getobject(Action, Location)).click();;
+			driver.findElement(Getobject(ElementType, Location)).click();;
 			break;
 		}
 		case "enter":{
-			driver.findElement(Getobject(Action, Location)).sendKeys(Value);
+			driver.findElement(Getobject(ElementType, Location)).sendKeys(Value);
 			break;
 		}
 		case "gotourl":{
@@ -30,7 +30,7 @@ public class ActionClass {
 		}
 		case "choose":
 		case "select":{
-			WebElement element = driver.findElement(Getobject(Action, Location));
+			WebElement element = driver.findElement(Getobject(ElementType, Location));
 			Select s = new Select(element);
 			s.selectByValue(Value);			
 			break;

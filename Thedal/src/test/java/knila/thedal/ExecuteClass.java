@@ -1,5 +1,6 @@
 package knila.thedal;
 
+import java.awt.Desktop.Action;
 import java.io.File;
 import java.io.FileInputStream;
 import java.sql.Array;
@@ -41,10 +42,33 @@ public class ExecuteClass extends BaseClass {
 		for (int testcase = 0; testcase < TestCases.size();testcase ++) {
 			TestSteps = (ArrayList) TestCases.get(testcase);
 			
-		}
+			for (int teststep = 0; teststep < TestSteps.size();teststep ++) {
+				String s[] = (String[]) TestSteps.get(teststep);
+				if(s[0] == null) {s[0] = "";}
+				if(s[1] == null) {s[1] = "";}
+				if(s[2] == null) {s[2] = "";}
+				if(s[3] == null) {s[3] = "";}
+				if(s[4] == null) {s[4] = "";}
+				
+				ActionClass ac = new ActionClass(driver);
+				ac.action(s[1].toString(), s[2].toString(), s[3].toString(), s[4].toString());
+				
+				System.out.println(s[0].toString());
+				System.out.println(s[1].toString());
+				System.out.println(s[2].toString());
+				System.out.println(s[3].toString());
+				System.out.println(s[4].toString());
+			}			
+		}		
+	}
+	
 
-		
-		
+	private String nulltoempty(String string) {
+		if(string==null) {
+			return "";
+		}else {
+			return string;
+		}
 	}
 
 	public void ReadTestCases() {
