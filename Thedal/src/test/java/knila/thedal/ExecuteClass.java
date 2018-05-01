@@ -26,10 +26,10 @@ public class ExecuteClass extends BaseClass {
 	
 	@BeforeClass
 	public void WarmUp() {
-		browser = "chrome";
-		URL = "";
-		filename="Thedal_Automation_Testcase.xlsx";
-//		GetDriver(browser);
+		browser = "firefox";
+		URL = "https://www.google.co.in/?gws_rd=ssl";
+		filename="Google_Automation_Testcase.xlsx";
+		GetDriver(browser);
 	}
 	
 	@Test

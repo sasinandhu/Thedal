@@ -12,10 +12,12 @@ public class BaseClass {
 		case "mozilla":
 		case "firefox":
 		{
+//			System.setProperty("webdriver.chrome.driver", "resource/driver/chromedriver.exe");
 			driver = new FirefoxDriver();
 			break;
 		}
 		case "chrome":{
+			System.setProperty("webdriver.chrome.driver", "resource/driver/chromedriver.exe");
 			driver = new ChromeDriver();
 			break;
 		}
