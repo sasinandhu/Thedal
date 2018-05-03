@@ -1,11 +1,14 @@
 package knila.thedal;
 
-import java.awt.Desktop.Action;
+import java.awt.*;
 import java.io.File;
 import java.io.FileInputStream;
-import java.sql.Array;
+import java.io.IOException;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
@@ -14,8 +17,15 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.monte.media.Format;
+import org.monte.media.math.Rational;
+import org.monte.screenrecorder.ScreenRecorder;
+import org.testng.Assert;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import static org.monte.media.AudioFormatKeys.*;
+import static org.monte.media.VideoFormatKeys.*;
 
 public class ExecuteClass extends BaseClass {
 
@@ -23,13 +33,65 @@ public class ExecuteClass extends BaseClass {
 	public static String filepath = "resource/testcase/";
 	public ArrayList TestCases = null;
 	ArrayList TestSteps=null;
+    private static ScreenRecorder screenRecorder;
+    public boolean RecoderSwitch;
+
 	
 	@BeforeClass
 	public void WarmUp() {
-		browser = "firefox";
+		RecoderSwitch = true;
+		DateFormat dateFormat = new SimpleDateFormat("yy-MM-dd HH-mm-ss");
+		Date date = new Date();
+		//Create a instance of GraphicsConfiguration to get the Graphics configuration
+        //of the Screen. This is needed for ScreenRecorder class.
+        GraphicsConfiguration gc = GraphicsEnvironment
+                .getLocalGraphicsEnvironment()
+                .getDefaultScreenDevice()
+                .getDefaultConfiguration();
+        
+        try {
+			screenRecorder = new ScreenRecorder(gc,
+			        new Format(MediaTypeKey, MediaType.FILE, MimeTypeKey, MIME_AVI),
+			        new Format(MediaTypeKey, MediaType.VIDEO, EncodingKey, ENCODING_AVI_TECHSMITH_SCREEN_CAPTURE,
+			                CompressorNameKey, ENCODING_AVI_TECHSMITH_SCREEN_CAPTURE,
+			                DepthKey, (int)24, FrameRateKey, Rational.valueOf(15),
+			                QualityKey, 1.0f,
+			                KeyFrameIntervalKey, (int) (15 * 60)),
+			        new Format(MediaTypeKey, MediaType.VIDEO, EncodingKey,"black",
+			                FrameRateKey, Rational.valueOf(30)),
+			        null);
+			if(RecoderSwitch == true){
+				screenRecorder.start();
+			}
+		} catch (IOException | AWTException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        
+		browser = "Chrome";
 		URL = "https://www.google.co.in/?gws_rd=ssl";
-		filename="Google_Automation_Testcase.xlsx";
+		filename="Thedal_Automation_Testcase.xlsx";
 		GetDriver(browser);
+		driver.manage().window().maximize();
+		driver.manage().timeouts().implicitlyWait(5, TimeUnit.MINUTES);
+	}
+	
+	@AfterClass
+	public void teardown() {
+
+		 try {
+			 if(RecoderSwitch == true){
+					screenRecorder.stop();
+				}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	        java.util.List<File> createdMovieFiles = screenRecorder.getCreatedMovieFiles();
+	        for(File movie : createdMovieFiles){
+	            System.out.println("New movie created: " + movie.getAbsolutePath());
+	        }
+//		driver.close();
 	}
 	
 	@Test
@@ -50,14 +112,22 @@ public class ExecuteClass extends BaseClass {
 				if(s[3] == null) {s[3] = "";}
 				if(s[4] == null) {s[4] = "";}
 				
-				ActionClass ac = new ActionClass(driver);
-				ac.action(s[1].toString(), s[2].toString(), s[3].toString(), s[4].toString());
 				
-				System.out.println(s[0].toString());
-				System.out.println(s[1].toString());
-				System.out.println(s[2].toString());
-				System.out.println(s[3].toString());
-				System.out.println(s[4].toString());
+				ActionClass ac = new ActionClass(driver);
+				boolean ActionResult = ac.action(s[1].toString(), s[2].toString(), s[3].toString(), s[4].toString());
+				try {
+					Thread.sleep(2000);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				try{
+					Assert.assertEquals(ActionResult, true);
+					System.out.println(s[0].toString() + " ---> "+ "Passed");
+				}
+				catch (Exception e) {
+					System.out.println(s[0].toString() + " ---> "+ "Failed");
+				}
 			}			
 		}		
 	}
@@ -89,8 +159,6 @@ public class ExecuteClass extends BaseClass {
 		int Rowcount = sheet.getLastRowNum();
 		Row row = sheet.getRow(0);
 		int ColumnCount = row.getLastCellNum();
-		System.out.println(Rowcount);
-		System.out.println(ColumnCount);
 
 		TestCases = new ArrayList<>();
 		for(int Testcase=2; Testcase<= Rowcount;Testcase ++) {

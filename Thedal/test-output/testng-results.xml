@@ -1,20 +1,66 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
+<testng-results skipped="0" failed="1" ignored="0" total="1" passed="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2018-05-01T14:29:41Z" name="Default suite" finished-at="2018-05-01T14:34:08Z" duration-ms="266543">
+  <suite name="Default suite" duration-ms="49790" started-at="2018-05-03T14:08:18Z" finished-at="2018-05-03T14:09:08Z">
     <groups>
     </groups>
-    <test started-at="2018-05-01T14:29:41Z" name="Default test" finished-at="2018-05-01T14:34:08Z" duration-ms="266543">
+    <test name="Default test" duration-ms="49790" started-at="2018-05-03T14:08:18Z" finished-at="2018-05-03T14:09:08Z">
       <class name="knila.thedal.ExecuteClass">
-        <test-method is-config="true" signature="WarmUp()[pri:0, instance:knila.thedal.ExecuteClass@194bcebf]" started-at="2018-05-01T14:29:41Z" name="WarmUp" finished-at="2018-05-01T14:30:42Z" duration-ms="61077" status="PASS">
+        <test-method status="PASS" signature="WarmUp()[pri:0, instance:knila.thedal.ExecuteClass@6d4b1c02]" name="WarmUp" is-config="true" duration-ms="4947" started-at="2018-05-03T14:08:18Z" finished-at="2018-05-03T14:08:23Z">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- WarmUp -->
-        <test-method signature="StartTest()[pri:0, instance:knila.thedal.ExecuteClass@194bcebf]" started-at="2018-05-01T14:30:42Z" name="StartTest" finished-at="2018-05-01T14:34:04Z" duration-ms="201744" status="PASS">
+        <test-method status="FAIL" signature="StartTest()[pri:0, instance:knila.thedal.ExecuteClass@6d4b1c02]" name="StartTest" duration-ms="44710" started-at="2018-05-03T14:08:23Z" finished-at="2018-05-03T14:09:08Z">
+          <exception class="java.lang.AssertionError">
+            <message>
+              <![CDATA[expected [true] but found [false]]]>
+            </message>
+            <full-stacktrace>
+              <![CDATA[java.lang.AssertionError: expected [true] but found [false]
+at org.testng.Assert.fail(Assert.java:96)
+at org.testng.Assert.failNotEquals(Assert.java:776)
+at org.testng.Assert.assertEqualsImpl(Assert.java:137)
+at org.testng.Assert.assertEquals(Assert.java:118)
+at org.testng.Assert.assertEquals(Assert.java:568)
+at org.testng.Assert.assertEquals(Assert.java:578)
+at knila.thedal.ExecuteClass.ExecuteRunner(ExecuteClass.java:125)
+at knila.thedal.ExecuteClass.StartTest(ExecuteClass.java:100)
+at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+at java.lang.reflect.Method.invoke(Unknown Source)
+at org.testng.internal.MethodInvocationHelper.invokeMethod(MethodInvocationHelper.java:124)
+at org.testng.internal.Invoker.invokeMethod(Invoker.java:583)
+at org.testng.internal.Invoker.invokeTestMethod(Invoker.java:719)
+at org.testng.internal.Invoker.invokeTestMethods(Invoker.java:989)
+at org.testng.internal.TestMethodWorker.invokeTestMethods(TestMethodWorker.java:125)
+at org.testng.internal.TestMethodWorker.run(TestMethodWorker.java:109)
+at org.testng.TestRunner.privateRun(TestRunner.java:648)
+at org.testng.TestRunner.run(TestRunner.java:505)
+at org.testng.SuiteRunner.runTest(SuiteRunner.java:455)
+at org.testng.SuiteRunner.runSequentially(SuiteRunner.java:450)
+at org.testng.SuiteRunner.privateRun(SuiteRunner.java:415)
+at org.testng.SuiteRunner.run(SuiteRunner.java:364)
+at org.testng.SuiteRunnerWorker.runSuite(SuiteRunnerWorker.java:52)
+at org.testng.SuiteRunnerWorker.run(SuiteRunnerWorker.java:84)
+at org.testng.TestNG.runSuitesSequentially(TestNG.java:1208)
+at org.testng.TestNG.runSuitesLocally(TestNG.java:1137)
+at org.testng.TestNG.runSuites(TestNG.java:1049)
+at org.testng.TestNG.run(TestNG.java:1017)
+at org.testng.remote.AbstractRemoteTestNG.run(AbstractRemoteTestNG.java:114)
+at org.testng.remote.RemoteTestNG.initAndRun(RemoteTestNG.java:251)
+at org.testng.remote.RemoteTestNG.main(RemoteTestNG.java:77)
+]]>
+            </full-stacktrace>
+          </exception> <!-- java.lang.AssertionError -->
           <reporter-output>
           </reporter-output>
         </test-method> <!-- StartTest -->
+        <test-method status="PASS" signature="teardown()[pri:0, instance:knila.thedal.ExecuteClass@6d4b1c02]" name="teardown" is-config="true" duration-ms="110" started-at="2018-05-03T14:09:08Z" finished-at="2018-05-03T14:09:08Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- teardown -->
       </class> <!-- knila.thedal.ExecuteClass -->
     </test> <!-- Default test -->
   </suite> <!-- Default suite -->

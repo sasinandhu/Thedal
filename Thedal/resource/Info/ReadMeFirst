@@ -1,0 +1,90 @@
+
+Actions:
+	*Click ==> Use to click on the element
+	*Enter ==> Use to Enter inside the element
+	*EnterAndTab ==> Use to Enter inside the element and Press tab key
+	*ClearAndEnter ==> Clear the content inside the textbox and Enter inside the element
+	*ClearEnterTab ==> Clear the content inside the textbox and Enter inside the element and Press tab key
+	*GotoURL ==> Used to navigate to any URL 
+	*Choose ==> Choose any value from Dropdown field
+	*Select ==> Select any value from Dropdown field
+	*VerifyPageTitle ==> Used to verify the title of a page
+	*VerifyContent ==> Used to Read/Verify the Content inside a field/label
+	*VerifyElementPresent ==> Used to verify/Check the element isVisible/isDisabled
+	*ImageUpload ==> used to upload any image file to FileUploadControl Field
+
+Actions Parameter
+Click:
+	Steps - Mandatory,
+	Action - Mandatory,
+	ElementType - Mandatory,
+	ElementPath - Mandatory,
+	value - Optional
+Enter:
+	Steps - Mandatory,
+	Action - Mandatory,
+	ElementType - Mandatory,
+	ElementPath - Mandatory,
+	value - Mandatory
+EnterAndTab:
+	Steps - Mandatory,
+	Action - Mandatory,
+	ElementType - Mandatory,
+	ElementPath - Mandatory,
+	value - Mandatory
+ClearAndEnter:
+	Steps - Mandatory,
+	Action - Mandatory,
+	ElementType - Mandatory,
+	ElementPath - Mandatory,
+	value - Mandatory
+ClearEnterTab:
+	Steps - Mandatory,
+	Action - Mandatory,
+	ElementType - Mandatory,
+	ElementPath - Mandatory,
+	value - Mandatory
+GotoURL:
+	Steps - Mandatory,
+	Action - Optional,
+	ElementType - Optional,
+	ElementPath - Optional,
+	value - Mandatory
+Choose:
+	Steps - Mandatory,
+	Action - Mandatory,
+	ElementType - Mandatory,
+	ElementPath - Mandatory,
+	value - Mandatory
+Select:
+	Steps - Mandatory,
+	Action - Mandatory,
+	ElementType - Mandatory,
+	ElementPath - Mandatory,
+	value - Mandatory
+VerifyPageTitle:
+	Steps - Mandatory,
+	Action - Mandatory,
+	ElementType - Optional,
+	ElementPath - Optional,
+	value - Mandatory
+VerifyContent:
+	Steps - Mandatory,
+	Action - Mandatory,
+	ElementType - Mandatory,
+	ElementPath - Mandatory,
+	value - Mandatory
+VerifyElementPresent:
+	Steps - Mandatory,
+	Action - Mandatory,
+	ElementType - Mandatory,
+	ElementPath - Mandatory,
+	value - Optional
+ImageUpload:
+	Steps - Mandatory,
+	Action - Mandatory,
+	ElementType - Optional,
+	ElementPath - Optional,
+	value - Mandatory
+
+
