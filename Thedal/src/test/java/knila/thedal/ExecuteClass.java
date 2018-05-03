@@ -65,7 +65,7 @@ public class ExecuteClass extends BaseClass {
 			}
 		} catch (IOException | AWTException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			e.printStackTrace();	
 		}
         
 		browser = "Chrome";
@@ -118,7 +118,6 @@ public class ExecuteClass extends BaseClass {
 				try {
 					Thread.sleep(2000);
 				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				try{
