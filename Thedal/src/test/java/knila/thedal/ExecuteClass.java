@@ -8,6 +8,8 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -33,6 +35,7 @@ public class ExecuteClass extends BaseClass {
 	public static String filepath = "resource/testcase/";
 	public ArrayList TestCases = null;
 	ArrayList TestSteps=null;
+	HashMap<String, String[]> Elements = null;
     private static ScreenRecorder screenRecorder;
     public boolean RecoderSwitch;
 
@@ -112,7 +115,6 @@ public class ExecuteClass extends BaseClass {
 				if(s[3] == null) {s[3] = "";}
 				if(s[4] == null) {s[4] = "";}
 				
-				
 				ActionClass ac = new ActionClass(driver);
 				boolean ActionResult = ac.action(s[1].toString(), s[2].toString(), s[3].toString(), s[4].toString());
 				try {
@@ -131,13 +133,36 @@ public class ExecuteClass extends BaseClass {
 		}		
 	}
 	
-
 	private String nulltoempty(String string) {
 		if(string==null) {
 			return "";
 		}else {
 			return string;
 		}
+	}
+	
+	public void getElements(Workbook wb){
+		Sheet sheet = wb.getSheet("Locator");
+		int Rowcount = sheet.getLastRowNum();
+		Row row = sheet.getRow(0);
+		int ColumnCount = row.getLastCellNum();
+
+		Elements = new HashMap<>();
+		for(int Element=1; Element<= Rowcount;Element ++) {
+			row = sheet.getRow(Element);
+			
+			Cell Cell1 = row.getCell(4);
+			Cell Cell2 = row.getCell(5);
+			Cell Cell3 = row.getCell(6);
+			String Cell1value = nulltoempty(Cell1.getStringCellValue());
+			String Cell2value = nulltoempty(Cell2.getStringCellValue());
+			String Cell3value = nulltoempty(Cell3.getStringCellValue());
+			String[] val = new String[2];
+			val[0] = Cell2value;
+			val[1] = Cell3value;
+			Elements.put(Cell1value, val);
+		}
+		System.out.println("Elements are finded");		
 	}
 
 	public void ReadTestCases() {
@@ -153,6 +178,9 @@ public class ExecuteClass extends BaseClass {
 			FileInputStream inputStream = new FileInputStream(file);
 			wb = new HSSFWorkbook(inputStream);
 		}
+		
+		getElements(wb);
+		
 		Sheet sheet = wb.getSheet("TestCase");
 		
 		int Rowcount = sheet.getLastRowNum();
@@ -166,11 +194,9 @@ public class ExecuteClass extends BaseClass {
 				}else {
 
 					TestCases.add(TestSteps);
-				}
-				
+				}				
 			}
-			 TestSteps = new ArrayList<>();
-			
+			TestSteps = new ArrayList<>();			
 			
 			Cell Cell1 = row.getCell(0);
 			Cell Cell2 = row.getCell(1);
@@ -190,18 +216,27 @@ public class ExecuteClass extends BaseClass {
 					Cell Cells2 = row.getCell(2);
 					Cell Cells3 = row.getCell(3);
 					Cell Cells4 = row.getCell(4);
-					Cell Cells5 = row.getCell(5);
+//					Cell Cells5 = row.getCell(5);
 					String Cell1values = getCellValueAsString(Cells1);
 					if(Cell1values ==null){
 						break;
 					}
 					else {
-						String[] actions = new String[ColumnCount-1];
+						String[] actions = new String[ColumnCount];
 						actions[0] = getCellValueAsString(Cells1);
 						actions[1] = getCellValueAsString(Cells2);
-						actions[2] = getCellValueAsString(Cells3);
-						actions[3] = getCellValueAsString(Cells4);
-						actions[4] = getCellValueAsString(Cells5);
+						String temp= nulltoempty(getCellValueAsString(Cells3));
+						if(temp != null && temp != ""){
+							String[] element = Elements.get(temp);
+							actions[2] = nulltoempty(element[0]);
+							actions[3] = nulltoempty(element[1]);
+						}
+						else{
+							actions[2] = "";
+							actions[3] = "";
+						}
+//						
+						actions[4] = getCellValueAsString(Cells4);
 						TestSteps.add(actions);
 					}
 				}
