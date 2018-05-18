@@ -94,7 +94,7 @@ public class ExecuteClass extends BaseClass {
 	        for(File movie : createdMovieFiles){
 	            System.out.println("New movie created: " + movie.getAbsolutePath());
 	        }
-//		driver.close();
+		driver.close();
 	}
 	
 	@Test
